@@ -99,26 +99,26 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.08;lett
 /* ============ HEADER BANNER (recreated from your logo) ============ */
 .banner{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
   background:linear-gradient(180deg,var(--bg2),var(--bg));transition:background .6s var(--ease)}
-.banner-in{position:relative;max-width:1280px;margin:0 auto;min-height:300px;display:grid;place-items:center;padding:46px 20px}
-.vine{position:absolute;top:50%;width:min(34vw,360px);height:auto;opacity:.9;pointer-events:none;transition:opacity .6s}
+.banner-in{position:relative;max-width:1280px;margin:0 auto;min-height:115px;display:grid;place-items:center;padding:10px 16px}
+.vine{position:absolute;top:50%;width:min(18vw,140px);height:auto;opacity:.85;pointer-events:none;transition:opacity .6s}
 .vine-l{left:0;transform:translateY(-50%)}
 .vine-r{right:0;transform:translateY(-50%) scaleX(-1)}
 .vine .stem{fill:none;stroke:var(--floral);stroke-width:1.4}
 .vine .leaf{fill:var(--floral)}
 .vine .petal{fill:var(--floral)}
 .vine .core{fill:var(--gold)}
-.bird{position:absolute;width:54px;height:auto;fill:var(--bird);opacity:.85}
-.bird-l{left:7%;bottom:24%}.bird-r{right:7%;bottom:30%;transform:scaleX(-1)}
-.arch{position:relative;display:grid;place-items:center;text-align:center;padding:34px 56px}
-.arch svg.frame{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px)}
-.arch svg.frame path{fill:none;stroke:var(--gold);stroke-width:1.3;opacity:.85}
-.monogram{font-family:var(--serif);font-weight:700;font-size:clamp(54px,8vw,92px);letter-spacing:-6px;line-height:.9}
-.wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,52px);letter-spacing:.22em;margin-top:6px}
-.wordmark-sub{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;color:var(--gold)}
-.wordmark-sub span{font-family:var(--sans);letter-spacing:.5em;font-size:clamp(10px,1.6vw,14px);text-transform:uppercase}
-.wordmark-sub i{height:1px;width:46px;background:linear-gradient(90deg,transparent,var(--gold));display:inline-block}
+.bird{position:absolute;width:24px;height:auto;fill:var(--bird);opacity:.8}
+.bird-l{left:10%;bottom:12%}.bird-r{right:10%;bottom:16%;transform:scaleX(-1)}
+.arch{position:relative;display:grid;place-items:center;text-align:center;padding:12px 24px}
+.arch svg.frame{position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px)}
+.arch svg.frame path{fill:none;stroke:var(--gold);stroke-width:1.2;opacity:.85}
+.monogram{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3.2vw,36px);letter-spacing:-2px;line-height:.9}
+.wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(14px,2.2vw,22px);letter-spacing:.18em;margin-top:2px}
+.wordmark-sub{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:2px;color:var(--gold)}
+.wordmark-sub span{font-family:var(--sans);letter-spacing:.35em;font-size:clamp(8px,1vw,9.5px);text-transform:uppercase}
+.wordmark-sub i{height:1px;width:20px;background:linear-gradient(90deg,transparent,var(--gold));display:inline-block}
 .wordmark-sub i.r{background:linear-gradient(90deg,var(--gold),transparent)}
-.ornament{color:var(--gold);font-size:18px;margin-top:6px}
+.ornament{color:var(--gold);font-size:11px;margin-top:2px}
 /* swap-in your real banner image: place header-banner.png next to this file & uncomment the <img> in HTML */
 .brand-banner-img{width:100%;display:block}
 
@@ -302,7 +302,6 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
     <nav class="nav-links">
       <button data-nav="home" class="active">Home</button>
       <button data-nav="rates">Live Rates</button>
-      <button data-nav="promises">Our Promises</button>
     </nav>
     <div class="nav-tools">
       <button class="icon-btn" id="themeBtn" aria-label="Switch theme" title="Switch theme">
@@ -320,7 +319,6 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
 <div class="mmenu" id="mmenu">
   <button data-nav="home">Home</button>
   <button data-nav="rates">Live Rates</button>
-  <button data-nav="promises">Our Promises</button>
 </div>
 
 <!-- ===================== HOME VIEW ===================== -->
@@ -404,37 +402,37 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
 
       <!-- Gold MCX -->
       <div class="rate-row">
-        <div class="label"><div class="name">Gold MCX</div><div class="sub">Captured automatically from the live market</div><span class="chip">Auto</span></div>
+        <div class="label"><div class="name">Gold MCX</div></div>
         <div class="rate-val"><div class="big" id="v-gmcx"><span class="skeleton"></span></div><div class="unit" id="v-gmcx-g">per gram &mdash;</div></div>
       </div>
       <!-- 24K Buy -->
       <div class="rate-row">
-        <div class="label"><div class="name">24 Karat Gold &mdash; Buy Rate</div><div class="sub">MCX + premium</div><span class="chip">Auto + Premium</span></div>
+        <div class="label"><div class="name">24 Karat Gold &mdash; Buy Rate</div></div>
         <div class="rate-val"><div class="big" id="v-24buy"><span class="skeleton"></span></div><div class="unit" id="v-24buy-g">per gram &mdash;</div></div>
       </div>
       <!-- 24K Sell -->
       <div class="rate-row">
-        <div class="label"><div class="name">24 Karat Gold &mdash; Sell Rate</div><div class="sub">MCX &plusmn; premium</div><span class="chip">Auto + Premium</span></div>
+        <div class="label"><div class="name">24 Karat Gold &mdash; Sell Rate</div></div>
         <div class="rate-val"><div class="big" id="v-24sell"><span class="skeleton"></span></div><div class="unit" id="v-24sell-g">per gram &mdash;</div></div>
       </div>
       <!-- 22K jewellery -->
       <div class="rate-row">
-        <div class="label"><div class="name">Gold Jewellery &mdash; 22 Karat</div><div class="sub">Inclusive of making charges</div><span class="chip manual">Updated by store</span></div>
+        <div class="label"><div class="name">Gold Jewellery &mdash; 22 Karat</div><div class="sub">Inclusive of making charges</div></div>
         <div class="rate-val"><div class="big" id="v-22"><span class="skeleton"></span></div><div class="unit" id="v-22-g">per gram &mdash;</div></div>
       </div>
       <!-- 20K jewellery -->
       <div class="rate-row">
-        <div class="label"><div class="name">Gold Jewellery &mdash; 20 Karat</div><div class="sub">Inclusive of making charges</div><span class="chip manual">Updated by store</span></div>
+        <div class="label"><div class="name">Gold Jewellery &mdash; 20 Karat</div><div class="sub">Inclusive of making charges</div></div>
         <div class="rate-val"><div class="big" id="v-20"><span class="skeleton"></span></div><div class="unit" id="v-20-g">per gram &mdash;</div></div>
       </div>
       <!-- Silver jewellery -->
       <div class="rate-row">
-        <div class="label"><div class="name">Silver Jewellery</div><div class="sub">Inclusive of making charges</div><span class="chip manual">Updated by store</span></div>
+        <div class="label"><div class="name">Silver Jewellery</div><div class="sub">Inclusive of making charges</div></div>
         <div class="rate-val"><div class="big" id="v-sj"><span class="skeleton"></span></div><div class="unit" id="v-sj-g">per gram &mdash;</div></div>
       </div>
       <!-- Pure silver bullion -->
       <div class="rate-row">
-        <div class="label"><div class="name">Pure Silver Bullion Rate</div><div class="sub">Silver MCX + premium</div><span class="chip">Auto + Premium</span></div>
+        <div class="label"><div class="name">Pure Silver Bullion Rate</div></div>
         <div class="rate-val"><div class="big" id="v-sbull"><span class="skeleton"></span></div><div class="unit" id="v-sbull-10g">per 10 g &mdash;</div></div>
       </div>
 
@@ -442,47 +440,13 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
     </div>
   </section>
 
-  <!-- PROMISE TEASER -->
-  <section class="wrap section" style="padding-top:0">
-    <div class="teaser" data-reveal>
-      <div>
-        <span class="eyebrow">Why Prakash</span>
-        <h3>The Prakash <span class="gold-text">Promise</span></h3>
-        <p>Fair pricing, assured exchange, endless choice and relationships that last &mdash; the four pillars behind every piece we craft.</p>
-        <button class="btn-gold" data-nav="promises">Discover Our Promises
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-      <div class="prom-ico" style="width:96px;height:96px;border-radius:24px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8z"/></svg>
-      </div>
+  <!-- OUR PROMISES -->
+  <section class="wrap section" id="sec-promises" style="padding-top:0">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">Why Prakash</span>
+      <h2>The Prakash <span class="gold-text">Promise</span></h2>
+      <p>Every ornament that leaves our atelier carries four commitments &mdash; the same values we have built our name upon, for every customer, every single day.</p>
     </div>
-  </section>
-
-  <!-- INSTAGRAM (last content block) -->
-  <section class="wrap section" style="padding-top:0">
-    <div class="ig" data-reveal>
-      <span class="eyebrow">Follow the Sparkle</span>
-      <h3>Join us on <span class="gold-text">Instagram</span></h3>
-      <p>New collections, behind&#8209;the&#8209;scenes craftsmanship and daily rate stories &mdash; follow Prakash Jewellers.</p>
-      <a class="ig-btn" href="https://www.instagram.com/prakash.jewellers_?igsh=cjc1aGk5MzdxN29h" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        Follow @prakash.jewellers_
-      </a>
-      <span class="ig-handle">instagram.com/prakash.jewellers_</span>
-    </div>
-  </section>
-</main>
-
-<!-- ===================== PROMISES VIEW ===================== -->
-<main class="view" id="view-promises">
-  <section class="wrap prom-hero" data-reveal>
-    <span class="eyebrow">Our Promise</span>
-    <h1>The Prakash <span class="gold-text">Promise</span></h1>
-    <p>Every ornament that leaves our atelier carries four commitments &mdash; the same values we have built our name upon, for every customer, every single day.</p>
-  </section>
-
-  <section class="wrap section" style="padding-top:10px">
     <div class="prom-grid">
       <!-- Fair Pricing -->
       <article class="prom-card" data-reveal>
@@ -509,18 +473,14 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
         <p>A jewellery experience rooted in trust and long&#8209;term relationships &mdash; we are here for every milestone.</p>
       </article>
     </div>
-
-    <div class="prom-close" data-reveal>
-      <div class="serif gold-text">&ldquo;Not just jewellery &mdash; a promise you can wear.&rdquo;</div>
-      <p style="color:var(--muted);margin:10px 0 0;font-weight:300">Step into Prakash Jewellers and experience the difference that honesty and craftsmanship make.</p>
-    </div>
   </section>
 
-  <!-- INSTAGRAM (last) -->
+  <!-- INSTAGRAM (last content block) -->
   <section class="wrap section" style="padding-top:0">
     <div class="ig" data-reveal>
       <span class="eyebrow">Follow the Sparkle</span>
       <h3>Join us on <span class="gold-text">Instagram</span></h3>
+      <p>New collections, behind&#8209;the&#8209;scenes craftsmanship and daily rate stories &mdash; follow Prakash Jewellers.</p>
       <a class="ig-btn" href="https://www.instagram.com/prakash.jewellers_?igsh=cjc1aGk5MzdxN29h" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         Follow @prakash.jewellers_
@@ -529,6 +489,8 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
     </div>
   </section>
 </main>
+
+
 
 <footer>
   <div class="wrap">
@@ -641,11 +603,14 @@ function showView(name, scrollId){
 }
 document.querySelectorAll("[data-nav]").forEach(el=>el.addEventListener("click",()=>{
   const n = el.dataset.nav;
-  if(n==="rates"){ if(!$("view-home").classList.contains("active")) showView("home"); setTimeout(()=>$("rates").scrollIntoView({behavior:"smooth"}), $("view-home").classList.contains("active")?0:300); }
-  else if(n==="promises"){ location.hash="#/promises"; }
+  if(n==="rates"){ if(!$("view-home").classList.contains("active")) showView("home"); setTimeout(()=>$("rates")?.scrollIntoView({behavior:"smooth"}), $("view-home").classList.contains("active")?0:300); }
+  else if(n==="promises"){ if(!$("view-home").classList.contains("active")) showView("home"); setTimeout(()=>$("sec-promises")?.scrollIntoView({behavior:"smooth"}), $("view-home").classList.contains("active")?0:300); }
   else { location.hash=""; showView("home"); }
 }));
-function routeFromHash(){ if(location.hash==="#/promises") showView("promises"); else showView("home"); }
+function routeFromHash(){
+  if(location.hash==="#/promises"){ if(!$("view-home").classList.contains("active")) showView("home"); setTimeout(()=>$("sec-promises")?.scrollIntoView({behavior:"smooth"}), 100); }
+  else showView("home");
+}
 window.addEventListener("hashchange", routeFromHash);
 
 /* ---------- reveal on scroll ---------- */
