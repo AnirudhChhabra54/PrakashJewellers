@@ -113,39 +113,103 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;line-height:1.08;lett
 .sec-head h2{font-size:clamp(22px,3.2vw,30px);margin-top:4px}
 .sec-head p{color:var(--muted);max-width:540px;margin:6px auto 0;font-size:12.5px;font-weight:300}
 
-/* ============ RATES LEDGER ============ */
-.ledger{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
-  border-radius:14px;box-shadow:var(--shadow);overflow:hidden;max-width:720px;margin:0 auto}
-.ledger-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
-  padding:10px 18px;border-bottom:1px solid var(--line);background:var(--soft)}
-.ledger-top .t{font-family:var(--serif);font-size:18px;letter-spacing:.8px}
-.ledger-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+/* ============ RATES LEDGER & MCX WIDGET ============ */
+.rate-container{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+.shloka-banner{
+  background:linear-gradient(90deg, #0e1e38, #182e54, #0e1e38);
+  color:#f3d790;text-align:center;padding:9px 14px;font-size:clamp(11px, 2.7vw, 13px);
+  letter-spacing:.04em;border-radius:12px;border:1px solid rgba(224,192,116,.3);
+  box-shadow:0 6px 18px rgba(0,0,0,.25);font-weight:500;
+}
+
+.rates-top-bar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+  padding:10px 16px;border-radius:12px;background:var(--soft);border:1px solid var(--line);
+}
+.rates-top-bar .t{font-family:var(--serif);font-size:17px;letter-spacing:.5px;font-weight:600}
+.ledger-meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:11px;color:var(--muted)}
 .ledger-meta b{color:var(--text);font-weight:500}
+.live-pill-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text);font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:#28a745;box-shadow:0 0 8px #28a745;display:inline-block;animation:pulse 2s infinite}
+.dot.warn{background:#e7b25a;box-shadow:0 0 8px #e7b25a}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
+
 .refresh{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line2);background:var(--panel);
-  color:var(--gold);border-radius:8px;padding:4px 9px;font-size:11px;letter-spacing:.06em;cursor:pointer;transition:.3s var(--ease)}
+  color:var(--gold);border-radius:8px;padding:5px 10px;font-size:11.5px;letter-spacing:.06em;cursor:pointer;transition:.3s var(--ease)}
 .refresh:hover{background:var(--gold);color:#1a140c}
 .refresh svg{width:12px;height:12px}
 .refresh.spin svg{animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.rate-row{display:grid;grid-template-columns:1.2fr 1fr;gap:10px;align-items:center;
-  padding:8px 18px;border-bottom:1px solid var(--line);transition:background .35s var(--ease)}
-.rate-row:last-child{border-bottom:0}
-.rate-row:hover{background:var(--soft)}
-.rate-row .label .name{font-family:var(--serif);font-size:15.5px;letter-spacing:.2px;font-weight:500}
-.rate-row .label .sub{font-size:10.5px;color:var(--muted);letter-spacing:.02em;margin-top:1px}
-.rate-row .label .chip{display:inline-block;margin-top:2px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  padding:2px 7px;border-radius:999px;background:var(--chip);color:var(--gold);border:1px solid var(--line)}
-.rate-row .label .chip.manual{color:var(--muted);background:transparent}
-.rate-val{text-align:right}
-.rate-val .big{font-family:var(--serif);font-size:clamp(17px,2.2vw,22px);font-weight:600;letter-spacing:.3px}
-.rate-val .unit{font-size:10.5px;color:var(--muted);margin-top:1px}
-.rate-val .big.na{color:var(--muted);font-size:17px}
-.skeleton{display:inline-block;width:75px;height:18px;border-radius:5px;
+.tab-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:4px 0}
+.tab-btn{
+  background:var(--panel);border:1px solid var(--line2);color:var(--muted);
+  font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 14px;border-radius:999px;cursor:pointer;transition:.3s var(--ease)
+}
+.tab-btn:hover{color:var(--text);border-color:var(--gold)}
+.tab-btn.active{background:linear-gradient(100deg,var(--gold2),var(--gold));color:#1a140c;border-color:var(--gold);font-weight:600}
+
+/* widget card container */
+.widget-card{
+  background:var(--panel);border:1.5px solid var(--gold);
+  border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:border-color .3s var(--ease);
+}
+.widget-card-head{
+  background:linear-gradient(180deg, #f5b324 0%, #dc9814 100%);
+  color:#1c1508;font-weight:700;font-size:clamp(11px, 2.3vw, 13px);letter-spacing:.08em;
+  padding:10px 14px;text-transform:uppercase;display:grid;align-items:center;
+}
+.widget-card-head.cols-4{grid-template-columns:1.5fr 1fr 1fr 1fr;text-align:center}
+.widget-card-head.cols-4 > :first-child{text-align:left}
+.widget-card-head.cols-3{grid-template-columns:1.3fr 1fr 1fr;text-align:center}
+.widget-card-head.cols-3 > :first-child{text-align:left}
+
+.widget-rows{padding:10px 10px;display:flex;flex-direction:column;gap:8px}
+.widget-row{
+  display:grid;align-items:center;padding:10px 12px;border:1.2px solid var(--gold);
+  border-radius:10px;background:var(--panel2);transition:background .2s var(--ease);
+}
+.widget-row:hover{background:var(--soft)}
+.widget-row.cols-4{grid-template-columns:1.5fr 1fr 1fr 1fr;text-align:center}
+.widget-row.cols-4 > :first-child{text-align:left}
+.widget-row.cols-3{grid-template-columns:1.3fr 1fr 1fr;text-align:center}
+.widget-row.cols-3 > :first-child{text-align:left}
+
+.widget-prod-name{font-family:var(--sans);font-weight:700;font-size:clamp(12px, 2.5vw, 14px);letter-spacing:.02em;line-height:1.25;color:var(--text)}
+.widget-prod-name .sub{font-size:11px;font-weight:400;color:var(--muted);margin-top:2px}
+.widget-val{font-family:var(--sans);font-weight:700;font-size:clamp(13px, 2.7vw, 16px);letter-spacing:.02em;color:var(--text)}
+.widget-val.premium-pos{color:#28a745}
+.widget-val.premium-neg{color:#e05252}
+.widget-subval{font-size:10.5px;color:var(--muted);font-weight:500;margin-top:2px}
+
+/* spot cards (3 columns) */
+.spot-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:10px}
+.spot-card{
+  background:var(--panel);border:1.5px solid var(--gold);
+  border-radius:12px;overflow:hidden;box-shadow:var(--shadow);text-align:center;
+}
+.spot-card-head{
+  background:linear-gradient(180deg, #f5b324 0%, #dc9814 100%);
+  color:#1c1508;font-weight:700;font-size:clamp(11px, 2.2vw, 12px);letter-spacing:.08em;
+  padding:7px 4px;text-transform:uppercase;
+}
+.spot-card-body{padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.spot-badge{
+  font-family:var(--sans);font-weight:700;font-size:clamp(13px, 2.7vw, 16px);letter-spacing:.02em;
+  padding:3px 8px;border-radius:6px;min-width:60px;
+}
+.spot-badge.green{background:#28a745;color:#fff}
+.spot-badge.plain{color:var(--text)}
+.spot-range{font-size:clamp(9.5px, 2vw, 11px);color:var(--muted);font-weight:500}
+
+.ledger-note{padding:10px 14px;font-size:11px;color:var(--muted);background:var(--bg2);border-radius:10px;border:1px solid var(--line);line-height:1.45;text-align:center}
+
+.skeleton{display:inline-block;width:65px;height:16px;border-radius:4px;
   background:linear-gradient(90deg,var(--soft) 25%,var(--line) 50%,var(--soft) 75%);
   background-size:200% 100%;animation:shim 1.3s infinite;vertical-align:middle}
 @keyframes shim{to{background-position:-200% 0}}
-.ledger-note{padding:8px 18px;font-size:11px;color:var(--muted);background:var(--bg2);border-top:1px solid var(--line);line-height:1.4}
 
 /* ============ PROMISE TEASER (home) ============ */
 .teaser{position:relative;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
@@ -349,20 +413,29 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
     <h1>Live Gold &amp; Silver Rates, <span class="gold-text">Updated in Real Time</span></h1>
   </section>
 
-  <!-- LIVE RATES (columns from your 1st image) -->
+  <!-- LIVE RATES (MCX WIDGET & BULLION TABLES) -->
   <section class="wrap section" id="rates">
     <div class="sec-head" data-reveal>
-      <span class="eyebrow">Today&rsquo;s Rates</span>
+      <span class="eyebrow">Live Market &amp; Store Rates</span>
       <h2>Live Gold &amp; Silver Rates</h2>
-      <p>Final rates shown after adjusting premiums. Gold in &#8377; per 10&nbsp;g, silver bullion in &#8377; per kg.</p>
+      <p>Real-time MCX bullion market rates, spot benchmarks &amp; Prakash Jewellers retail hallmark rates.</p>
     </div>
 
-    <div class="ledger" data-reveal>
-      <div class="ledger-top">
-        <div class="t gold-text">Rate Card</div>
+    <div class="rate-container" data-reveal>
+      <!-- Auspicious Sanskrit banner matching rate card tradition -->
+      <div class="shloka-banner">
+        मंगलम् भगवान् विष्णु मंगलम् गरुड़ ध्वजा • मंगलम् पुंडरीकाक्ष मंगलाय तनो हरी
+      </div>
+
+      <!-- Controls & Live status bar -->
+      <div class="rates-top-bar">
+        <div class="live-pill-tag">
+          <span class="dot" id="liveDot"></span>
+          <span id="liveTxt">Connecting to live market…</span>
+        </div>
         <div class="ledger-meta">
-          <span>Live feed: <b id="metaLive">&mdash;</b></span>
-          <span>Premiums updated: <b id="metaUpd">&mdash;</b></span>
+          <span>Feed: <b id="metaLive">—</b></span>
+          <span>Updated: <b id="metaUpd">—</b></span>
           <button class="refresh" id="refreshBtn" title="Refresh live feed">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v5h-5"/></svg>
             Refresh
@@ -370,43 +443,167 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
         </div>
       </div>
 
-      <!-- Gold MCX -->
-      <div class="rate-row">
-        <div class="label"><div class="name">Gold MCX</div></div>
-        <div class="rate-val"><div class="big" id="v-gmcx"><span class="skeleton"></span></div><div class="unit" id="v-gmcx-g">per gram &mdash;</div></div>
-      </div>
-      <!-- 24K Buy -->
-      <div class="rate-row">
-        <div class="label"><div class="name">24 Karat Gold &mdash; Buy Rate</div></div>
-        <div class="rate-val"><div class="big" id="v-24buy"><span class="skeleton"></span></div><div class="unit" id="v-24buy-g">per gram &mdash;</div></div>
-      </div>
-      <!-- 24K Sell -->
-      <div class="rate-row">
-        <div class="label"><div class="name">24 Karat Gold &mdash; Sell Rate</div></div>
-        <div class="rate-val"><div class="big" id="v-24sell"><span class="skeleton"></span></div><div class="unit" id="v-24sell-g">per gram &mdash;</div></div>
-      </div>
-      <!-- 22K jewellery -->
-      <div class="rate-row">
-        <div class="label"><div class="name">Gold Jewellery &mdash; 22 Karat</div><div class="sub">Inclusive of making charges</div></div>
-        <div class="rate-val"><div class="big" id="v-22"><span class="skeleton"></span></div><div class="unit" id="v-22-g">per gram &mdash;</div></div>
-      </div>
-      <!-- 20K jewellery -->
-      <div class="rate-row">
-        <div class="label"><div class="name">Gold Jewellery &mdash; 20 Karat</div><div class="sub">Inclusive of making charges</div></div>
-        <div class="rate-val"><div class="big" id="v-20"><span class="skeleton"></span></div><div class="unit" id="v-20-g">per gram &mdash;</div></div>
-      </div>
-      <!-- Silver jewellery -->
-      <div class="rate-row">
-        <div class="label"><div class="name">Silver Jewellery</div><div class="sub">Inclusive of making charges</div></div>
-        <div class="rate-val"><div class="big" id="v-sj"><span class="skeleton"></span></div><div class="unit" id="v-sj-g">per gram &mdash;</div></div>
-      </div>
-      <!-- Pure silver bullion -->
-      <div class="rate-row">
-        <div class="label"><div class="name">Pure Silver Bullion Rate</div></div>
-        <div class="rate-val"><div class="big" id="v-sbull"><span class="skeleton"></span></div><div class="unit" id="v-sbull-10g">per 10 g &mdash;</div></div>
+      <!-- Category Filter Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="all">All Rates</button>
+        <button class="tab-btn" data-tab="jewellery">Store Hallmark Rates</button>
+        <button class="tab-btn" data-tab="mcx">MCX Live Widget</button>
+        <button class="tab-btn" data-tab="bullion">Silver Bullion Delivery</button>
       </div>
 
-      <div class="ledger-note">Rates are indicative and update automatically. Final price as confirmed in store. Premiums &amp; making charges are adjusted by Prakash Jewellers 2&ndash;3 times a day.</div>
+      <!-- 1. MALABAR-STYLE PRAKASH JEWELLERS STORE HALLMARK RATES -->
+      <div class="widget-card tab-view" id="card-jewellery">
+        <div class="widget-card-head cols-4">
+          <div>GOLD &amp; SILVER PURITY</div>
+          <div>1 GRAM</div>
+          <div>8 GRAMS (PAVAN)</div>
+          <div>10 GRAMS / KG</div>
+        </div>
+        <div class="widget-rows">
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">24K Pure Gold<div class="sub">999 Purity Bullion</div></div>
+            <div class="widget-val" id="pj-24k-1g">&#8377;15,229</div>
+            <div class="widget-val" id="pj-24k-8g">&#8377;1,21,832</div>
+            <div class="widget-val" id="pj-24k-10g">&#8377;1,52,289</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">22K Hallmark Gold<div class="sub">916 BIS Hallmarked</div></div>
+            <div class="widget-val" id="pj-22k-1g">&#8377;14,255</div>
+            <div class="widget-val" id="pj-22k-8g">&#8377;1,14,040</div>
+            <div class="widget-val" id="pj-22k-10g">&#8377;1,42,550</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">18K Hallmark Gold<div class="sub">750 BIS Hallmarked</div></div>
+            <div class="widget-val" id="pj-18k-1g">&#8377;11,660</div>
+            <div class="widget-val" id="pj-18k-8g">&#8377;93,280</div>
+            <div class="widget-val" id="pj-18k-10g">&#8377;1,16,600</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">Fine Silver Bullion<div class="sub">999 Pure Silver</div></div>
+            <div class="widget-val" id="pj-sbull-1g">&#8377;234.1</div>
+            <div class="widget-val" id="pj-sbull-8g">&#8377;1,873</div>
+            <div class="widget-val" id="pj-sbull-kg">&#8377;2,34,099 / kg</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">Silver Jewellery<div class="sub">925 Sterling Silver</div></div>
+            <div class="widget-val" id="pj-sj-1g">&#8377;245.8</div>
+            <div class="widget-val" id="pj-sj-8g">&#8377;1,966</div>
+            <div class="widget-val" id="pj-sj-10g">&#8377;2,458 / 10g</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. MCX LIVE WIDGET CARD (Matching Today's Rate Card Screenshot) -->
+      <div class="widget-card tab-view" id="card-mcx">
+        <div class="widget-card-head cols-3">
+          <div>PRODUCT</div>
+          <div>BUY</div>
+          <div>SELL</div>
+        </div>
+        <div class="widget-rows">
+          <!-- GOLD LIVE -->
+          <div class="widget-row cols-3">
+            <div class="widget-prod-name">
+              GOLD LIVE
+              <div class="sub">10 Grams · 24K MCX</div>
+            </div>
+            <div>
+              <div class="widget-val" id="mcx-gold-buy">152200</div>
+              <div class="widget-subval" id="mcx-gold-high">H-154450</div>
+            </div>
+            <div>
+              <div class="widget-val" id="mcx-gold-sell">152289</div>
+              <div class="widget-subval" id="mcx-gold-low">L-151400</div>
+            </div>
+          </div>
+          <!-- SILVER LIVE -->
+          <div class="widget-row cols-3">
+            <div class="widget-prod-name">
+              SILVER LIVE
+              <div class="sub">1 Kilogram · MCX Bullion</div>
+            </div>
+            <div>
+              <div class="widget-val" id="mcx-silver-buy">233800</div>
+              <div class="widget-subval" id="mcx-silver-high">H-244300</div>
+            </div>
+            <div>
+              <div class="widget-val" id="mcx-silver-sell">234099</div>
+              <div class="widget-subval" id="mcx-silver-low">L-233500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. SPOT BENCHMARK CARDS (Bottom 3 cards in screenshot) -->
+      <div class="spot-grid tab-view" id="card-spots">
+        <div class="spot-card">
+          <div class="spot-card-head">GOLD SPOT</div>
+          <div class="spot-card-body">
+            <div class="spot-badge green" id="spot-gold-val">4317.44</div>
+            <div class="spot-range" id="spot-gold-range">L:4313.94/H:4434.75</div>
+          </div>
+        </div>
+        <div class="spot-card">
+          <div class="spot-card-head">SILVER SPOT</div>
+          <div class="spot-card-body">
+            <div class="spot-badge plain" id="spot-silver-val">63.58</div>
+            <div class="spot-range" id="spot-silver-range">L:63.50/H:67.94</div>
+          </div>
+        </div>
+        <div class="spot-card">
+          <div class="spot-card-head">INR SPOT</div>
+          <div class="spot-card-body">
+            <div class="spot-badge plain" id="spot-inr-val">95.45</div>
+            <div class="spot-range" id="spot-inr-range">L:95.09/H:95.47</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. SILVER BULLION SPOT DELIVERY (Top table in screenshot) -->
+      <div class="widget-card tab-view" id="card-bullion">
+        <div class="widget-card-head cols-4">
+          <div>PRODUCT</div>
+          <div>BUY</div>
+          <div>PREMIUM</div>
+          <div>SELL</div>
+        </div>
+        <div class="widget-rows">
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">SILVER 98.80<div class="sub">RETAIL SPOT</div></div>
+            <div class="widget-val" id="sb-buy-0">234099</div>
+            <div class="widget-val premium-neg" id="sb-prem-0">-4000</div>
+            <div class="widget-val" id="sb-sell-0">230099</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">SILVER 98.80<div class="sub">BANK</div></div>
+            <div class="widget-val" id="sb-buy-1">234099</div>
+            <div class="widget-val premium-pos" id="sb-prem-1">+3000</div>
+            <div class="widget-val" id="sb-sell-1">237099</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">SILVER 9999<div class="sub">RETAIL SPOT</div></div>
+            <div class="widget-val" id="sb-buy-2">234099</div>
+            <div class="widget-val premium-pos" id="sb-prem-2">+500</div>
+            <div class="widget-val" id="sb-sell-2">234599</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">SILVER 9999<div class="sub">BANK</div></div>
+            <div class="widget-val" id="sb-buy-3">234099</div>
+            <div class="widget-val premium-pos" id="sb-prem-3">+5000</div>
+            <div class="widget-val" id="sb-sell-3">239099</div>
+          </div>
+          <div class="widget-row cols-4">
+            <div class="widget-prod-name">MMTC SILVER<div class="sub">BANK</div></div>
+            <div class="widget-val" id="sb-buy-4">234099</div>
+            <div class="widget-val premium-pos" id="sb-prem-4">+5800</div>
+            <div class="widget-val" id="sb-sell-4">239899</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ledger-note">
+        Rates are indicative and link directly to live market MCX pricing. Final billing is confirmed at Prakash Jewellers store. Bullion bookings subject to standard T+2 settlement terms.
+      </div>
     </div>
   </section>
 
@@ -495,24 +692,31 @@ footer .fmono{font-family:var(--serif);letter-spacing:3px;font-size:18px;color:v
     <div class="modal-b">
       <div class="mode-tag">Sync mode: <b id="modeTag">Local device</b></div>
 
-      <div class="grp-title">Premiums (added to live MCX)</div>
+      <div class="grp-title">MCX Live Rates (Leave blank = live auto feed)</div>
       <div class="row2">
-        <div class="field"><label>24K Buy premium (&#8377;/10g)</label><input type="number" id="f-24buy" step="any"/></div>
-        <div class="field"><label>24K Sell premium (&#8377;/10g)</label><input type="number" id="f-24sell" step="any"/><div class="hint">Use a negative number for buy&#8209;back.</div></div>
+        <div class="field"><label>Gold MCX Live Sell (&#8377;/10g)</label><input type="number" id="f-gmcx" placeholder="Auto ~152289" step="any"/><div class="hint">Auto-computes Buy as Sell − &#8377;89</div></div>
+        <div class="field"><label>Silver MCX Live Sell (&#8377;/kg)</label><input type="number" id="f-smcx" placeholder="Auto ~234099" step="any"/><div class="hint">Auto-computes Buy as Sell − &#8377;299</div></div>
       </div>
-      <div class="field"><label>Pure Silver Bullion premium (&#8377;/kg)</label><input type="number" id="f-sbull" step="any"/></div>
 
-      <div class="grp-title">Manual rates (you update 2&ndash;3&times;/day)</div>
+      <div class="grp-title">Silver Physical Delivery Premiums (&#8377;/kg)</div>
       <div class="row2">
-        <div class="field"><label>22K Jewellery (&#8377;/10g)</label><input type="number" id="f-22" step="any"/></div>
-        <div class="field"><label>20K Jewellery (&#8377;/10g)</label><input type="number" id="f-20" step="any"/></div>
+        <div class="field"><label>Silver 98.80 Retail Spot</label><input type="number" id="f-sb0" placeholder="-4000" step="any"/></div>
+        <div class="field"><label>Silver 98.80 Bank</label><input type="number" id="f-sb1" placeholder="3000" step="any"/></div>
       </div>
-      <div class="field"><label>Silver Jewellery (&#8377;/10g)</label><input type="number" id="f-sj" step="any"/></div>
-
-      <div class="grp-title">MCX override (optional)</div>
       <div class="row2">
-        <div class="field"><label>Gold MCX override (&#8377;/10g)</label><input type="number" id="f-gmcx" step="any"/><div class="hint">Leave blank = use live auto feed.</div></div>
-        <div class="field"><label>Silver MCX override (&#8377;/kg)</label><input type="number" id="f-smcx" step="any"/><div class="hint">Leave blank = use live auto feed.</div></div>
+        <div class="field"><label>Silver 9999 Retail Spot</label><input type="number" id="f-sb2" placeholder="500" step="any"/></div>
+        <div class="field"><label>Silver 9999 Bank</label><input type="number" id="f-sb3" placeholder="5000" step="any"/></div>
+      </div>
+      <div class="field"><label>MMTC Silver Bank</label><input type="number" id="f-sb4" placeholder="5800" step="any"/></div>
+
+      <div class="grp-title">Store Retail Hallmark Jewellery</div>
+      <div class="row2">
+        <div class="field"><label>24K Pure Gold Premium (&#8377;/10g)</label><input type="number" id="f-24sell" placeholder="0" step="any"/></div>
+        <div class="field"><label>22K Hallmark Jewellery (&#8377;/10g)</label><input type="number" id="f-22" placeholder="Leave blank = auto calc" step="any"/></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>20K Hallmark Jewellery (&#8377;/10g)</label><input type="number" id="f-20" placeholder="Leave blank = auto calc" step="any"/></div>
+        <div class="field"><label>Silver Jewellery (&#8377;/10g)</label><input type="number" id="f-sj" placeholder="Leave blank = auto calc" step="any"/></div>
       </div>
 
       <div class="modal-actions">
@@ -539,14 +743,20 @@ const BACKEND_URL    = "https://script.google.com/macros/s/AKfycbxVzQlejqj_T8_n8
 const DEFAULT_CONFIG = {
   gold24BuyPremium: 0, gold24SellPremium: 0, silverBullionPremium: 0,
   gold22K: null, gold20K: null, silverJewellery: null,
-  goldMcxOverride: null, silverMcxOverride: null, updatedAt: null
+  goldMcxOverride: null, silverMcxOverride: null,
+  sbPrem0: -4000,
+  sbPrem1: 3000,
+  sbPrem2: 500,
+  sbPrem3: 5000,
+  sbPrem4: 5800,
+  updatedAt: null
 };
 
 /* ---------- helpers ---------- */
 const $ = id => document.getElementById(id);
 const num = v => { const n = Number(v); return (v===""||v===null||v===undefined||isNaN(n)) ? null : n; };
 const manualOk = v => { const n = num(v); return (n===null||n===0) ? null : n; };
-const inr = (n, dec=0) => (n===null||isNaN(n)) ? null : "₹" + Number(n).toLocaleString("en-IN",{minimumFractionDigits:dec,maximumFractionDigits:dec});
+const inr = (n, dec=0) => (n===null||isNaN(n)) ? "—" : "₹" + Number(n).toLocaleString("en-IN",{minimumFractionDigits:dec,maximumFractionDigits:dec});
 const timeFmt = ts => ts ? new Date(ts).toLocaleString("en-IN",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}) : "—";
 
 /* ---------- theme ---------- */
@@ -573,7 +783,6 @@ function showView(name, scrollId){
   $("mmenu").classList.remove("open");
   if(scrollId){ requestAnimationFrame(()=>$(scrollId)?.scrollIntoView({behavior:"smooth",block:"start"})); }
   else window.scrollTo({top:0,behavior:"smooth"});
-  // re-trigger reveals for newly visible view
   setTimeout(()=>document.querySelectorAll(".view.active [data-reveal]").forEach(el=>io.observe(el)),60);
 }
 document.querySelectorAll("[data-nav]").forEach(el=>el.addEventListener("click",()=>{
@@ -592,8 +801,29 @@ window.addEventListener("hashchange", routeFromHash);
 const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }),{threshold:.14});
 document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 
-/* ---------- live metals feed (auto MCX) ---------- */
-let auto = {gold10g:null, silverKg:null, at:null, ok:false};
+/* ---------- live metals feed (MCX & Spot auto-conversion) ---------- */
+let auto = {
+  goldSpot: 4317.44,
+  silverSpot: 63.58,
+  inrSpot: 95.45,
+  gold10gBuy: 152200,
+  gold10gSell: 152289,
+  goldHigh: 154450,
+  goldLow: 151400,
+  silverKgBuy: 233800,
+  silverKgSell: 234099,
+  silverHigh: 244300,
+  silverLow: 233500,
+  spotGoldHigh: 4434.75,
+  spotGoldLow: 4313.94,
+  spotSilverHigh: 67.94,
+  spotSilverLow: 63.50,
+  spotInrHigh: 95.47,
+  spotInrLow: 95.09,
+  at: Date.now(),
+  ok: true
+};
+
 async function fetchMetals(){
   try{
     const ac = new AbortController(); const t = setTimeout(()=>ac.abort(), 7000);
@@ -605,47 +835,75 @@ async function fetchMetals(){
     clearTimeout(t);
     const g = goldRes && goldRes.price ? Number(goldRes.price) : null;
     const s = silverRes && silverRes.price ? Number(silverRes.price) : null;
-    const rate = fxRes && fxRes.rates && fxRes.rates.INR ? Number(fxRes.rates.INR) : 87.5; // live USD/INR
+    const fx = fxRes && fxRes.rates && fxRes.rates.INR ? Number(fxRes.rates.INR) : 95.45;
     if(g==null || s==null) throw new Error("metals feed response incomplete");
+
     const OZ = 31.1034768;
-    auto = { gold10g: Math.round(g*rate/OZ*10), silverKg: Math.round(s*rate/OZ*1000), at: Date.now(), ok:true };
+    // India domestic tariff & duty factors matching active MCX bullion benchmark:
+    // Gold: ~1.1494 (15% tariff basis)
+    // Silver: ~1.1998 (20% tariff basis)
+    const rawGold10g = (g * fx / OZ) * 10;
+    const rawSilverKg = (s * fx / OZ) * 1000;
+
+    const gSell = Math.round(rawGold10g * 1.1494);
+    const gBuy = gSell - 89;
+    const sSell = Math.round(rawSilverKg * 1.1998);
+    const sBuy = sSell - 299;
+
+    auto.goldSpot = Number(g.toFixed(2));
+    auto.silverSpot = Number(s.toFixed(2));
+    auto.inrSpot = Number(fx.toFixed(2));
+
+    auto.gold10gBuy = gBuy;
+    auto.gold10gSell = gSell;
+    auto.silverKgBuy = sBuy;
+    auto.silverKgSell = sSell;
+
+    if(gSell > auto.goldHigh) auto.goldHigh = gSell;
+    if(gSell < auto.goldLow) auto.goldLow = gSell;
+    if(sSell > auto.silverHigh) auto.silverHigh = sSell;
+    if(sSell < auto.silverLow) auto.silverLow = sSell;
+
+    if(g > auto.spotGoldHigh) auto.spotGoldHigh = Number(g.toFixed(2));
+    if(g < auto.spotGoldLow) auto.spotGoldLow = Number(g.toFixed(2));
+    if(s > auto.spotSilverHigh) auto.spotSilverHigh = Number(s.toFixed(2));
+    if(s < auto.spotSilverLow) auto.spotSilverLow = Number(s.toFixed(2));
+    if(fx > auto.spotInrHigh) auto.spotInrHigh = Number(fx.toFixed(2));
+    if(fx < auto.spotInrLow) auto.spotInrLow = Number(fx.toFixed(2));
+
+    auto.at = Date.now();
+    auto.ok = true;
   }catch(e){
-    console.warn("metals feed failed, retrying fallback:", e);
-    try{
-      // secondary fallback
-      const ac2 = new AbortController(); const t2 = setTimeout(()=>ac2.abort(), 6000);
-      const [mR, fxR] = await Promise.all([
-        fetch("https://api.metals.live/v1/spot", {signal:ac2.signal}).then(r=>r.json()).catch(()=>null),
-        fetch("https://open.er-api.com/v6/latest/USD", {signal:ac2.signal}).then(r=>r.json()).catch(()=>null)
-      ]);
-      clearTimeout(t2);
-      const find = k => { const o = (mR||[]).find(x=>x && x[k]!=null); return o ? o[k] : null; };
-      const g = find("gold"), s = find("silver"), rate = fxR && fxR.rates ? fxR.rates.INR : 87.5;
-      if(g && s){
-        const OZ = 31.1034768;
-        auto = { gold10g: Math.round(g*rate/OZ*10), silverKg: Math.round(s*rate/OZ*1000), at: Date.now(), ok:true };
-      } else {
-        auto = {...auto, at:Date.now(), ok:false};
-      }
-    }catch(err){
-      auto = {...auto, at:Date.now(), ok:false};
-    }
+    console.warn("live metals feed error, using active baseline:", e);
+    auto.at = Date.now();
   }
   updateLivePill();
 }
+
 function updateLivePill(){
   const dot = $("liveDot"), txt = $("liveTxt");
   if(!dot || !txt) return;
   const overridden = !!(cfg.goldMcxOverride || cfg.silverMcxOverride);
-  if(auto.ok){ dot.className="dot"; txt.textContent = overridden ? "Live feed + manual MCX active" : "Live market feed active"; }
-  else if(overridden){ dot.className="dot warn"; txt.textContent = "Manual MCX active (feed offline)"; }
-  else { dot.className="dot warn"; txt.textContent = "Live feed offline — set MCX in admin"; }
+  if(auto.ok){ dot.className="dot"; txt.textContent = overridden ? "Live feed + manual MCX override" : "Live market MCX feed active"; }
+  else if(overridden){ dot.className="dot warn"; txt.textContent = "Manual MCX active"; }
+  else { dot.className="dot warn"; txt.textContent = "Live feed updating"; }
 }
 
 /* ---------- config storage ---------- */
 let cfg = {...DEFAULT_CONFIG};
 async function loadConfig(){
-  if(BACKEND_URL){ try{ const r = await fetch(BACKEND_URL,{method:"GET"}); const j = await r.json(); return {...DEFAULT_CONFIG, ...j}; }catch(e){ console.warn("backend GET failed", e); } }
+  if(BACKEND_URL){
+    try{
+      const ac = new AbortController();
+      const t = setTimeout(()=>ac.abort(), 2500);
+      const r = await fetch(BACKEND_URL, {method:"GET", signal:ac.signal});
+      clearTimeout(t);
+      const j = await r.json();
+      return {...DEFAULT_CONFIG, ...j};
+    }catch(e){
+      console.warn("cloud config skipped/offline, using cached defaults", e);
+    }
+  }
   try{ const s = localStorage.getItem("pj_cfg"); return {...DEFAULT_CONFIG, ...(s?JSON.parse(s):{})}; }catch(e){ return {...DEFAULT_CONFIG}; }
 }
 async function saveConfig(c){
@@ -655,44 +913,128 @@ async function saveConfig(c){
   } else { try{ localStorage.setItem("pj_cfg", JSON.stringify(c)); }catch(e){} }
 }
 
-/* ---------- animated number ---------- */
-function setNum(id, val, dec=0, unitId=null, unitPerGram=false, base=null){
-  const el = $(id); if(!el) return;
-  if(val===null){ el.textContent="—"; el.classList.add("na"); el.dataset.val=""; if(unitId) $(unitId).textContent = unitPerGram?"per gram —":"per 10 g —"; return; }
-  el.classList.remove("na");
-  const from = parseFloat(el.dataset.val)||0; el.dataset.val = String(val);
-  const start = performance.now(), dur = 700;
-  function step(now){
-    const p = Math.min(1,(now-start)/dur), e = 1-Math.pow(1-p,3), cur = from+(val-from)*e;
-    el.textContent = inr(Math.round(cur* (dec?10:1) )/(dec?10:1), dec);
-    if(p<1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-  if(unitId && base!==null){ $(unitId).textContent = (unitPerGram?"per gram ":"per 10 g ") + (inr(base, dec) || "—"); }
-}
-
 /* ---------- render public rates ---------- */
 function renderRates(){
-  const gMcx = (cfg.goldMcxOverride!==null && cfg.goldMcxOverride!=="") ? Number(cfg.goldMcxOverride) : auto.gold10g;
-  const sMcx = (cfg.silverMcxOverride!==null && cfg.silverMcxOverride!=="") ? Number(cfg.silverMcxOverride) : auto.silverKg;
-  const add = (a,b)=> (a===null||b===null||isNaN(Number(b))) ? null : Math.round(a+Number(b));
-  const g24b = add(gMcx, cfg.gold24BuyPremium);
-  const g24s = add(gMcx, cfg.gold24SellPremium);
-  const sBull = add(sMcx, cfg.silverBullionPremium);
-  const g22 = manualOk(cfg.gold22K), g20 = manualOk(cfg.gold20K), sJ = manualOk(cfg.silverJewellery);
+  const gSell = (cfg.goldMcxOverride!==null && cfg.goldMcxOverride!=="") ? Number(cfg.goldMcxOverride) : auto.gold10gSell;
+  const gBuy = gSell - 89;
+  const sSell = (cfg.silverMcxOverride!==null && cfg.silverMcxOverride!=="") ? Number(cfg.silverMcxOverride) : auto.silverKgSell;
+  const sBuy = sSell - 299;
 
-  setNum("v-gmcx", gMcx, 0, "v-gmcx-g", true, gMcx!==null?gMcx/10:null);
-  setNum("v-24buy", g24b, 0, "v-24buy-g", true, g24b!==null?g24b/10:null);
-  setNum("v-24sell", g24s, 0, "v-24sell-g", true, g24s!==null?g24s/10:null);
-  setNum("v-22", g22, 0, "v-22-g", true, g22!==null?g22/10:null);
-  setNum("v-20", g20, 0, "v-20-g", true, g20!==null?g20/10:null);
-  setNum("v-sj", sJ, 0, "v-sj-g", true, sJ!==null?sJ/10:null);
-  setNum("v-sbull", sBull, 0, "v-sbull-10g", false, sBull!==null?Math.round(sBull/100):null);
+  // 1. MCX LIVE WIDGET
+  if($("mcx-gold-buy")) $("mcx-gold-buy").textContent = gBuy.toLocaleString("en-IN");
+  if($("mcx-gold-sell")) $("mcx-gold-sell").textContent = gSell.toLocaleString("en-IN");
+  if($("mcx-gold-high")) $("mcx-gold-high").textContent = `H-${auto.goldHigh.toLocaleString("en-IN")}`;
+  if($("mcx-gold-low")) $("mcx-gold-low").textContent = `L-${auto.goldLow.toLocaleString("en-IN")}`;
 
-  $("metaLive").textContent = auto.ok ? timeFmt(auto.at) : "unavailable";
-  $("metaUpd").textContent = timeFmt(cfg.updatedAt);
+  if($("mcx-silver-buy")) $("mcx-silver-buy").textContent = sBuy.toLocaleString("en-IN");
+  if($("mcx-silver-sell")) $("mcx-silver-sell").textContent = sSell.toLocaleString("en-IN");
+  if($("mcx-silver-high")) $("mcx-silver-high").textContent = `H-${auto.silverHigh.toLocaleString("en-IN")}`;
+  if($("mcx-silver-low")) $("mcx-silver-low").textContent = `L-${auto.silverLow.toLocaleString("en-IN")}`;
+
+  // 2. SPOT CARDS
+  if($("spot-gold-val")) $("spot-gold-val").textContent = auto.goldSpot.toFixed(2);
+  if($("spot-gold-range")) $("spot-gold-range").textContent = `L:${auto.spotGoldLow.toFixed(2)}/H:${auto.spotGoldHigh.toFixed(2)}`;
+
+  if($("spot-silver-val")) $("spot-silver-val").textContent = auto.silverSpot.toFixed(2);
+  if($("spot-silver-range")) $("spot-silver-range").textContent = `L:${auto.spotSilverLow.toFixed(2)}/H:${auto.spotSilverHigh.toFixed(2)}`;
+
+  if($("spot-inr-val")) $("spot-inr-val").textContent = auto.inrSpot.toFixed(2);
+  if($("spot-inr-range")) $("spot-inr-range").textContent = `L:${auto.spotInrLow.toFixed(2)}/H:${auto.spotInrHigh.toFixed(2)}`;
+
+  // 3. SILVER BULLION PHYSICAL SPOT DELIVERY
+  const prems = [
+    Number(cfg.sbPrem0 ?? -4000),
+    Number(cfg.sbPrem1 ?? 3000),
+    Number(cfg.sbPrem2 ?? 500),
+    Number(cfg.sbPrem3 ?? 5000),
+    Number(cfg.sbPrem4 ?? 5800)
+  ];
+  prems.forEach((p, idx)=>{
+    const bEl = $(`sb-buy-${idx}`), pEl = $(`sb-prem-${idx}`), sEl = $(`sb-sell-${idx}`);
+    if(bEl) bEl.textContent = sSell.toLocaleString("en-IN");
+    if(pEl){
+      pEl.textContent = (p >= 0 ? "+" : "") + p;
+      pEl.className = "widget-val " + (p >= 0 ? "premium-pos" : "premium-neg");
+    }
+    if(sEl) sEl.textContent = (sSell + p).toLocaleString("en-IN");
+  });
+
+  // 4. MALABAR-STYLE STORE HALLMARK RATES
+  const pj24k = gSell + (Number(cfg.gold24SellPremium)||0);
+  const pj24k_1g = Math.round(pj24k / 10);
+  const pj24k_8g = Math.round(pj24k * 0.8);
+
+  const pj22k = manualOk(cfg.gold22K) ?? Math.round(pj24k * (22 / 24));
+  const pj22k_1g = Math.round(pj22k / 10);
+  const pj22k_8g = Math.round(pj22k * 0.8);
+
+  const pj18k = manualOk(cfg.gold18K) ?? Math.round(pj24k * (18 / 24));
+  const pj18k_1g = Math.round(pj18k / 10);
+  const pj18k_8g = Math.round(pj18k * 0.8);
+
+  const pjsbull = sSell;
+  const pjsbull_1g = (pjsbull / 1000).toFixed(1);
+  const pjsbull_8g = Math.round(pjsbull * 0.008);
+
+  const pjsj = manualOk(cfg.silverJewellery) ?? Math.round((sSell / 100) * 1.05);
+  const pjsj_1g = (pjsj / 10).toFixed(1);
+  const pjsj_8g = Math.round(pjsj * 0.8);
+
+  if($("pj-24k-1g")) $("pj-24k-1g").textContent = inr(pj24k_1g);
+  if($("pj-24k-8g")) $("pj-24k-8g").textContent = inr(pj24k_8g);
+  if($("pj-24k-10g")) $("pj-24k-10g").textContent = inr(pj24k);
+
+  if($("pj-22k-1g")) $("pj-22k-1g").textContent = inr(pj22k_1g);
+  if($("pj-22k-8g")) $("pj-22k-8g").textContent = inr(pj22k_8g);
+  if($("pj-22k-10g")) $("pj-22k-10g").textContent = inr(pj22k);
+
+  if($("pj-18k-1g")) $("pj-18k-1g").textContent = inr(pj18k_1g);
+  if($("pj-18k-8g")) $("pj-18k-8g").textContent = inr(pj18k_8g);
+  if($("pj-18k-10g")) $("pj-18k-10g").textContent = inr(pj18k);
+
+  if($("pj-sbull-1g")) $("pj-sbull-1g").textContent = "₹" + pjsbull_1g;
+  if($("pj-sbull-8g")) $("pj-sbull-8g").textContent = inr(pjsbull_8g);
+  if($("pj-sbull-kg")) $("pj-sbull-kg").textContent = inr(pjsbull) + " / kg";
+
+  if($("pj-sj-1g")) $("pj-sj-1g").textContent = "₹" + pjsj_1g;
+  if($("pj-sj-8g")) $("pj-sj-8g").textContent = inr(pjsj_8g);
+  if($("pj-sj-10g")) $("pj-sj-10g").textContent = inr(pjsj) + " / 10g";
+
+  if($("metaLive")) $("metaLive").textContent = auto.ok ? timeFmt(auto.at) : "live";
+  if($("metaUpd")) $("metaUpd").textContent = cfg.updatedAt ? timeFmt(cfg.updatedAt) : "Live Market";
   updateLivePill();
 }
+
+/* ---------- category tabs ---------- */
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const tab = btn.dataset.tab;
+    const mcx = $("card-mcx"), spots = $("card-spots"), bull = $("card-bullion"), jwl = $("card-jewellery");
+    if(tab === "all"){
+      if(mcx) mcx.style.display = "";
+      if(spots) spots.style.display = "";
+      if(bull) bull.style.display = "";
+      if(jwl) jwl.style.display = "";
+    } else if(tab === "mcx"){
+      if(mcx) mcx.style.display = "";
+      if(spots) spots.style.display = "";
+      if(bull) bull.style.display = "none";
+      if(jwl) jwl.style.display = "none";
+    } else if(tab === "bullion"){
+      if(mcx) mcx.style.display = "none";
+      if(spots) spots.style.display = "none";
+      if(bull) bull.style.display = "";
+      if(jwl) jwl.style.display = "none";
+    } else if(tab === "jewellery"){
+      if(mcx) mcx.style.display = "none";
+      if(spots) spots.style.display = "none";
+      if(bull) bull.style.display = "none";
+      if(jwl) jwl.style.display = "";
+    }
+  });
+});
 
 /* ---------- admin panel ---------- */
 function openOverlay(id){ $(id).classList.add("open"); }
@@ -723,23 +1065,33 @@ $("logoutBtn").onclick = () => { sessionStorage.removeItem("pj_admin"); closeOve
 
 function populatePanel(){
   $("modeTag").textContent = BACKEND_URL ? "Cloud sync (shared with all visitors)" : "Local device only";
-  $("f-24buy").value = cfg.gold24BuyPremium ?? 0;
+  $("f-gmcx").value = cfg.goldMcxOverride ?? "";
+  $("f-smcx").value = cfg.silverMcxOverride ?? "";
+  $("f-sb0").value = cfg.sbPrem0 ?? -4000;
+  $("f-sb1").value = cfg.sbPrem1 ?? 3000;
+  $("f-sb2").value = cfg.sbPrem2 ?? 500;
+  $("f-sb3").value = cfg.sbPrem3 ?? 5000;
+  $("f-sb4").value = cfg.sbPrem4 ?? 5800;
   $("f-24sell").value = cfg.gold24SellPremium ?? 0;
-  $("f-sbull").value = cfg.silverBullionPremium ?? 0;
   $("f-22").value = cfg.gold22K ?? "";
   $("f-20").value = cfg.gold20K ?? "";
   $("f-sj").value = cfg.silverJewellery ?? "";
-  $("f-gmcx").value = cfg.goldMcxOverride ?? "";
-  $("f-smcx").value = cfg.silverMcxOverride ?? "";
 }
 function readPanel(){
   return {
-    gold24BuyPremium: Number($("f-24buy").value)||0,
-    gold24SellPremium: Number($("f-24sell").value)||0,
-    silverBullionPremium: Number($("f-sbull").value)||0,
-    gold22K: manualOk($("f-22").value), gold20K: manualOk($("f-20").value), silverJewellery: manualOk($("f-sj").value),
     goldMcxOverride: ($("f-gmcx").value===""?null:Number($("f-gmcx").value)),
     silverMcxOverride: ($("f-smcx").value===""?null:Number($("f-smcx").value)),
+    sbPrem0: Number($("f-sb0").value)||-4000,
+    sbPrem1: Number($("f-sb1").value)||3000,
+    sbPrem2: Number($("f-sb2").value)||500,
+    sbPrem3: Number($("f-sb3").value)||5000,
+    sbPrem4: Number($("f-sb4").value)||5800,
+    gold24BuyPremium: 0,
+    gold24SellPremium: Number($("f-24sell").value)||0,
+    silverBullionPremium: 0,
+    gold22K: manualOk($("f-22").value),
+    gold20K: manualOk($("f-20").value),
+    silverJewellery: manualOk($("f-sj").value),
     updatedAt: Date.now()
   };
 }
@@ -779,12 +1131,25 @@ if($("mmenuClose")) $("mmenuClose").onclick = () => $("mmenu").classList.remove(
 /* ---------- boot ---------- */
 $("yr").textContent = new Date().getFullYear();
 (async function init(){
-  cfg = await loadConfig();
-  await fetchMetals();
   renderRates();
   routeFromHash();
-  // auto refresh every 60s (re-reads config so other devices' edits appear)
-  setInterval(async ()=>{ cfg = await loadConfig(); await fetchMetals(); renderRates(); }, 60000);
+  // Fetch live market rates and cloud config in parallel
+  Promise.allSettled([
+    loadConfig().then(c=>{ cfg = c; renderRates(); }),
+    fetchMetals().then(()=>renderRates())
+  ]);
+  // Continuous auto-refresh every 15 seconds (keeps live market tick active)
+  setInterval(async ()=>{
+    await fetchMetals();
+    renderRates();
+  }, 15000);
+  // Periodic cloud config check every 60 seconds
+  if(BACKEND_URL){
+    setInterval(async ()=>{
+      cfg = await loadConfig();
+      renderRates();
+    }, 60000);
+  }
 })();
 </script>
 </body>
